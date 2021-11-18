@@ -1,0 +1,41 @@
+{
+    "name": "matteomeloni/laravel-rest-ql",
+    "description": ":package_description",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matteo Meloni",
+            "email": "matteomelonig@gmail.com",
+            "homepage": "https://github.com/matteomeloni"
+        }
+    ],
+    "homepage": "https://github.com/matteomeloni/laravel-rest-ql",
+    "keywords": ["Laravel", "Eloquent", "Query", "HTTP Request"],
+    "require": {
+        "illuminate/support": "~7|~8"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~9.0",
+        "orchestra/testbench": "~5|~6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Matteomeloni\\LaravelRestQl\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Matteomeloni\\LaravelRestQl\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Matteomeloni\\LaravelRestQl\\LaravelRestQlServiceProvider"
+            ],
+            "aliases": {
+                "LaravelRestQl": "Matteomeloni\\LaravelRestQl\\Facades\\LaravelRestQl"
+            }
+        }
+    }
+}
