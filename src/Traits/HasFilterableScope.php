@@ -14,7 +14,7 @@ trait HasFilterableScope
      */
     public function scopeFilter(Builder $builder, $filters = []): Builder
     {
-        $filters = $this->retrieveFilters($filters);
+        $filters = Helper::retrieveData($filters, 'filters');
 
         return $builder->when($filters, function ($query, $filters) {
             foreach ($filters as $filter) {
@@ -33,7 +33,7 @@ trait HasFilterableScope
     private function parseFilter(Builder $query, $filter): Builder
     {
         if (is_object($filter)) {
-            return $this->setQuery($query, $filter);
+            return $this->setWhereCondition($query, $filter);
         }
 
         return $query->where(function ($subQuery) use ($filter) {
@@ -48,7 +48,7 @@ trait HasFilterableScope
      * @param object $filter
      * @return Builder
      */
-    private function setQuery(Builder $builder, object $filter): Builder
+    private function setWhereCondition(Builder $builder, object $filter): Builder
     {
         $filter = (object)$filter;
         $filter->boolean = $filter->boolean ?? 'and';
@@ -70,26 +70,5 @@ trait HasFilterableScope
         }
 
         return $builder;
-    }
-
-    /**
-     * @param $filters
-     * @return array|false|string
-     */
-    private function retrieveFilters($filters)
-    {
-        $filters = empty($filters)
-            ? Helper::getParameter('filters')
-            : $filters;
-
-        if (Helper::isBase64($filters)) {
-            $filters = base64_decode($filters);
-        }
-
-        if (Helper::isJson($filters)) {
-            $filters = json_decode($filters);
-        }
-
-        return $filters;
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Matteomeloni\LaravelRestQl\Traits\HasSelectableColumnsScope;
 use Matteomeloni\LaravelRestQl\Traits\HasFilterableScope;
 use Matteomeloni\LaravelRestQl\Traits\HasSearchable;
+use Matteomeloni\LaravelRestQl\Traits\HasSortableScope;
 use Matteomeloni\LaravelRestQl\Traits\HasTextSearchScope;
 
 abstract class LaravelRestQl extends Model
@@ -13,6 +14,7 @@ abstract class LaravelRestQl extends Model
     use HasSelectableColumnsScope,
         HasFilterableScope,
         HasSearchable,
+        HasSortableScope,
         HasTextSearchScope;
 
 }

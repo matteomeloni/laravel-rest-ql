@@ -4,6 +4,27 @@ namespace Matteomeloni\LaravelRestQl;
 
 class Helper
 {
+    /**
+     * @param mixed $data
+     * @param string $parameter
+     * @return array|null
+     */
+    public static function retrieveData($data, string $parameter): ?array
+    {
+        $data = empty($data)
+            ? Helper::getParameter($parameter)
+            : $data;
+
+        if (Helper::isBase64($data)) {
+            $data = base64_decode($data);
+        }
+
+        if (Helper::isJson($data)) {
+            $data = json_decode($data);
+        }
+
+        return $data;
+    }
 
     /**
      * @param string $parameter
