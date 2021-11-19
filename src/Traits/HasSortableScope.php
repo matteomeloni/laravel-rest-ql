@@ -9,12 +9,12 @@ trait HasSortableScope
 {
     /**
      * @param Builder $builder
-     * @param mixed $sorts
+     * @param mixed|null $sorts
      * @return Builder
      */
-    public function scopeSort(Builder $builder, $sorts = []): Builder
+    public function scopeSort(Builder $builder, $sorts = null): Builder
     {
-        $sorting = Helper::retrieveData($sorts, 'sort');
+        $sorting = Helper::retrieveData($sorts, 'sorts');
 
         return $builder->when($sorting, function ($query, $sorting) {
             foreach ($sorting as $item) {

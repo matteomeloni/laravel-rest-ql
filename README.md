@@ -55,7 +55,7 @@ If you discover any security related issues, please email matteomelonig@gmail.co
 
 ## Credits
 
-- [Author Name][link-author]
+- [Matteo Meloni][link-author]
 - [All Contributors][link-contributors]
 
 ## License

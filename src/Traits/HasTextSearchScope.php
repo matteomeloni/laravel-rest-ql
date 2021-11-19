@@ -10,10 +10,10 @@ trait HasTextSearchScope
 {
     /**
      * @param Builder $builder
-     * @param string $textSearch
+     * @param string|null $textSearch
      * @return Builder
      */
-    public function scopeTextSearch(Builder $builder, string $textSearch): Builder
+    public function scopeTextSearch(Builder $builder, ?string $textSearch): Builder
     {
         $textSearch = empty($textSearch)
             ? Helper::getParameter('search')

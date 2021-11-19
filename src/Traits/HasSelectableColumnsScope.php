@@ -9,10 +9,10 @@ trait HasSelectableColumnsScope
 {
     /**
      * @param Builder $builder
-     * @param mixed $columns
+     * @param mixed|null $columns
      * @return Builder
      */
-    public function scopeChooseColumns(Builder $builder, $columns = []): Builder
+    public function scopeChooseColumns(Builder $builder, $columns = null): Builder
     {
         $fields = Helper::retrieveData($columns, 'columns');
 

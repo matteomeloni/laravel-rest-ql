@@ -9,10 +9,10 @@ trait HasFilterableScope
 {
     /**
      * @param Builder $builder
-     * @param mixed $filters
+     * @param mixed|null $filters
      * @return Builder
      */
-    public function scopeFilter(Builder $builder, $filters = []): Builder
+    public function scopeFilter(Builder $builder, $filters = null): Builder
     {
         $filters = Helper::retrieveData($filters, 'filters');
 
