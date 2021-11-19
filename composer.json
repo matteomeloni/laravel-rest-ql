@@ -1,6 +1,6 @@
 {
     "name": "matteomeloni/laravel-rest-ql",
-    "description": ":package_description",
+    "description": "A simple way, to be able to build a query into a Laravel model, through a http request",
     "license": "MIT",
     "authors": [
         {
@@ -10,8 +10,9 @@
         }
     ],
     "homepage": "https://github.com/matteomeloni/laravel-rest-ql",
-    "keywords": ["Laravel", "Eloquent", "Query", "HTTP Request"],
+    "keywords": ["Laravel", "Eloquent", "Query", "Query Builder", "HTTP Request"],
     "require": {
+        "php": "^7.4",
         "illuminate/support": "~7|~8"
     },
     "require-dev": {
