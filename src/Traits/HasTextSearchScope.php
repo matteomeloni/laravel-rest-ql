@@ -11,7 +11,7 @@ trait HasTextSearchScope
     /**
      * @param Builder $builder
      * @param string $textSearch
-     * @return Builder|mixed
+     * @return Builder
      */
     public function scopeTextSearch(Builder $builder, string $textSearch): Builder
     {
