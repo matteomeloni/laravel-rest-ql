@@ -18,7 +18,6 @@ abstract class LaravelRestQl extends Model
         HasSortableScope,
         HasTextSearchScope;
 
-
     /**
      * @param Builder $builder
      * @param array $params
