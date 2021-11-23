@@ -35,6 +35,28 @@ class Book extends LaravelRestQl
 }
 ```
 
+and into the controller you can use `restQl` scope to add query
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Book;
+
+class BookController extends Controller
+{
+    public function index()
+    {
+
+        $books = Book::restQL()
+            ->get();
+
+        return response()->json($books);
+    }
+}
+```
+
 ## Change log
 
 Please see the [changelog][link-changelog] for more information on what has changed recently.

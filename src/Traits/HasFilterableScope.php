@@ -3,6 +3,7 @@
 namespace Matteomeloni\LaravelRestQl\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
 use Matteomeloni\LaravelRestQl\Helper;
 
 trait HasFilterableScope
@@ -32,7 +33,7 @@ trait HasFilterableScope
      */
     private function parseFilter(Builder $query, $filter): Builder
     {
-        if (is_object($filter)) {
+        if (Arr::isAssoc($filter)) {
             return $this->setWhereCondition($query, $filter);
         }
 
@@ -45,28 +46,27 @@ trait HasFilterableScope
 
     /**
      * @param Builder $builder
-     * @param object $filter
+     * @param array $filter
      * @return Builder
      */
-    private function setWhereCondition(Builder $builder, object $filter): Builder
+    private function setWhereCondition(Builder $builder, array $filter): Builder
     {
-        $filter = (object)$filter;
-        $filter->boolean = $filter->boolean ?? 'and';
+        $filter['boolean'] = $filter['boolean'] ?? 'and';
 
-        if (!in_array($filter->column, $this->getSearchable())) {
+        if (!in_array($filter['column'], $this->getSearchable())) {
             return $builder;
         }
 
-        if (in_array($filter->operator, ['=', '!=', '>', '<', '>=', '<=', 'like', 'notlike'])) {
-            $builder->where($filter->column, $filter->operator, $filter->value, $filter->boolean);
+        if (in_array($filter['operator'], ['=', '!=', '>', '<', '>=', '<=', 'like', 'notlike'])) {
+            $builder->where($filter['column'], $filter['operator'], $filter['value'], $filter['boolean']);
         }
 
-        if ($filter->operator === 'in') {
-            $builder->whereIn($filter->column, $filter->value, $filter->boolean);
+        if ($filter['operator'] === 'in') {
+            $builder->whereIn($filter['column'], $filter['value'], $filter['boolean']);
         }
 
-        if ($filter->operator == 'between') {
-            $builder->whereBetween($filter->column, $filter->value, $filter->boolean);
+        if ($filter['operator'] == 'between') {
+            $builder->whereBetween($filter['column'], $filter['value'], $filter['boolean']);
         }
 
         return $builder;

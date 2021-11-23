@@ -20,7 +20,7 @@ class Helper
         }
 
         if (Helper::isJson($data)) {
-            $data = json_decode($data);
+            $data = json_decode($data,true);
         }
 
         return $data;

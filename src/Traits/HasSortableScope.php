@@ -32,13 +32,12 @@ trait HasSortableScope
      */
     private function setSortCondition(Builder $builder, $item): Builder
     {
-        $item = (object)$item;
-        $item->direction = $item->direction ?? 'asc';
+        $item['direction'] = $item['direction'] ?? 'asc';
 
-        if (!in_array($item->column, $this->getSearchable())) {
+        if (!in_array($item['column'], $this->getSearchable())) {
             return $builder;
         }
 
-        return $builder->orderBy($item->column, $item->direction);
+        return $builder->orderBy($item['column'], $item['direction']);
     }
 }
