@@ -33,10 +33,7 @@
         "laravel": {
             "providers": [
                 "Matteomeloni\\LaravelRestQl\\LaravelRestQlServiceProvider"
-            ],
-            "aliases": {
-                "LaravelRestQl": "Matteomeloni\\LaravelRestQl\\Facades\\LaravelRestQl"
-            }
+            ]
         }
     }
 }
