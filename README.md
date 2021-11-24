@@ -26,6 +26,8 @@ A simple way, to be able to build a query into a Laravel model, through a http r
     
     - [Ordering](#ordering)
 
+- [Requirements](#requirements)
+
 ## Installation
 
 ---
@@ -205,6 +207,12 @@ Parameter: sorts
 
 /api/books?sorts=[{"column":"title"},{"column":"category_id","direction":"desc"}]
 ```
+
+## Requirements
+
+- `php 7.4 or later`
+
+- `Laravel 7 or later`
 
 ## Change log
 
