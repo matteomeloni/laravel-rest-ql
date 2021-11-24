@@ -6,6 +6,26 @@
 
 A simple way, to be able to build a query into a Laravel model, through a http request.
 
+- [Installation](#installation)
+
+- [Usage](#usage)
+  
+  - [How to build query](#how-to-build-query)
+    
+    - [Passing an Array](#passing-an-array)
+    
+    - [Passing Data with HTTP Request](#passing-data-with-http-request)
+  
+  - [Examples](#examples)
+    
+    - [Choose columns](#choose-columns)
+    
+    - [Search string](#search-string)
+    
+    - [Where conditions](#where-conditions)
+    
+    - [Ordering](#ordering)
+
 ## Installation
 
 ---
@@ -35,7 +55,7 @@ class Book extends LaravelRestQl
 }
 ```
 
-and into the controller you can use `restQl` scope to add query
+and into the controller you can use `restQl` scope to make a new query
 
 ```php
 <?php
@@ -55,6 +75,135 @@ class BookController extends Controller
         return response()->json($books);
     }
 }
+```
+
+### How to build query
+
+There are three ways to build a query.
+
+#### Passing an array
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Book;
+
+class BookController extends Controller
+{
+    public function index()
+    {
+        $data = [
+            'search' => ''
+            'select' => [],
+            'filters' => [],
+            'sorts' => []
+        ];
+
+        $books = Book::restQL($data)->get();
+
+        return response()->json($books);
+    }
+}
+```
+
+#### Passing data with HTTP Request.
+
+You can pass data with `http url parameters` or `http request header`.
+
+In this case the format is JSON and you can use base64 for encoding data.
+
+```php
+<?php
+
+//Route: /api/books?select=[]&filters=[]&sorts=[]&search=''
+
+namespace App\Http\Controllers;
+
+use App\Models\Book;
+
+class BookController extends Controller
+{
+    public function index()
+    {
+        $books = Book::restQL()->get();
+
+        return response()->json($books);
+    }
+}
+```
+
+### Examples
+
+#### Choose columns
+
+```
+URL: /api/books
+Parameter: select
+
+
+/api/books?select=["title", "description"]
+```
+
+#### Search string
+
+Searches for the string in all columns of the table or fillable attribute.
+
+```
+URL: /api/books
+Parameter: search
+
+
+/api/books?search=laravel
+```
+
+#### Where conditions
+
+Avaialable comparison operators: `=` `!=` `<` `<=` `>` `>=` `like` `notlike` `in` `between`
+
+```
+URL: /api/books
+Parameter: filters
+
+/api/books?filters=[{"column":"category_id","operator":"=","value":1}]
+
+/api/books?filters=[{"column":"category_id","operator":"between","value":[1,10]}]
+
+/api/books?filters=[{"column":"category_id","operator":"in","value":[1,3,5]}]
+
+/api/books=filters=[{"column":"category_id","operator":"=","value":1},{"column":"title","operator":"like","value":"PHP"}]
+```
+
+It is possible to concatenate two or more conditions with or logic.
+
+```
+URL: /api/books
+Parameter: filters
+
+/api/books?filters=[{"column":"category_id","operator":"=","value":1},{"column":"category_id","operator":"=","value":3,"boolean":"or"}]
+```
+
+Multiple "where" clauses can be grouped in parentheses to achieve logical grouping in the query.
+
+```
+URL: /api/books
+Parameter: filters
+
+/api/books?filters=[{"column":"title","operator":"like","value":"PHP"},[{"column":"category_id","operator":"=","value":1},{"column":"category_id","operator":"=","value":3,"boolean":"or"}]]
+```
+
+#### Ordering
+
+```
+URL: /api/books
+Parameter: sorts
+
+/api/books?sorts=[{"column":"title"}]
+
+/api/books?sorts=[{"column":"title", "direction":"desc"}]
+
+/api/books?sorts=[{"column":"title"},{"column":"category_id","direction":"desc"}]
 ```
 
 ## Change log
