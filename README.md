@@ -98,7 +98,7 @@ class BookController extends Controller
     {
         $data = [
             'search' => ''
-            'select' => [],
+            'columns' => [],
             'filters' => [],
             'sorts' => []
         ];
@@ -142,10 +142,10 @@ class BookController extends Controller
 
 ```
 URL: /api/books
-Parameter: select
+Parameter: columns
 
 
-/api/books?select=["title", "description"]
+/api/books?columns=["title", "description"]
 ```
 
 #### Search string
@@ -162,7 +162,7 @@ Parameter: search
 
 #### Where conditions
 
-Avaialable comparison operators: `=` `!=` `<` `<=` `>` `>=` `like` `notlike` `in` `between`
+Avaialable comparison operators: `=` `!=` `<` `<=` `>` `>=` `like` `not like` `in` `between`
 
 ```
 URL: /api/books
@@ -213,6 +213,12 @@ Parameter: sorts
 - `php 7.4 or later`
 
 - `Laravel 7 or later`
+
+## Testing
+
+```bash
+$ composer test
+```
 
 ## Change log
 

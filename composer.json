@@ -24,9 +24,15 @@
             "Matteomeloni\\LaravelRestQl\\": "src/"
         }
     },
+    "scripts": {
+        "test": [
+            "php vendor/bin/phpunit"
+        ]
+    },
     "autoload-dev": {
         "psr-4": {
-            "Matteomeloni\\LaravelRestQl\\Tests\\": "tests"
+            "Matteomeloni\\LaravelRestQl\\Tests\\": "tests",
+            "Matteomeloni\\LaravelRestQl\\Tests\\Factories\\": "tests/database/factories"
         }
     },
     "extra": {

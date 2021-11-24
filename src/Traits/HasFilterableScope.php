@@ -57,7 +57,7 @@ trait HasFilterableScope
             return $builder;
         }
 
-        if (in_array($filter['operator'], ['=', '!=', '>', '<', '>=', '<=', 'like', 'notlike'])) {
+        if (in_array($filter['operator'], ['=', '!=', '>', '<', '>=', '<=', 'like', 'not like'])) {
             $builder->where($filter['column'], $filter['operator'], $filter['value'], $filter['boolean']);
         }
 
