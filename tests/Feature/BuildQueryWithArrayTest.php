@@ -289,6 +289,25 @@ class BuildQueryWithArrayTest extends TestCase
     }
 
     /** @test */
+    public function set_query_with_not_null_operator()
+    {
+        Book::factory()->create(['description' => null]);
+        Book::factory(4)->create();
+
+        $queryString = 'select * from "books_tests" where "description" is not null';
+        $data = [
+            'filters' => [
+                ['column' => 'description', 'operator' => 'not null']
+            ]
+        ];
+
+        $books = Book::restQl($data)->get();
+
+        $this->assertCount(4, $books);
+        $this->assertEquals($queryString, Book::restQl($data)->toSql());
+    }
+
+    /** @test */
     public function set_query_with_multiple_conditions()
     {
         Book::factory()->create(['title' => 'New Title', 'category_id' => 1]);

@@ -81,6 +81,10 @@ trait HasFilterableScope
             $builder->whereNull($filter['column'], $filter['boolean']);
         }
 
+        if ($filter['operator'] == 'not null') {
+            $builder->whereNotNull($filter['column'], $filter['boolean']);
+        }
+
         return $builder;
     }
 }
