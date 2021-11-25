@@ -158,6 +158,23 @@ class BuildQueryWithUrlParametersTest extends TestCase
     }
 
     /** @test */
+    public function set_query_with_not_in_operator()
+    {
+        Book::factory()->create(['category_id' => 1]);
+        Book::factory()->create(['category_id' => 2]);
+        Book::factory()->create(['category_id' => 3]);
+        Book::factory()->create(['category_id' => 4]);
+        Book::factory()->create(['category_id' => 5]);
+
+        $filters = [
+            ['column' => 'category_id', 'operator' => 'not in', 'value' => [2, 4]]
+        ];
+
+        $this->get('api/books?filters=' . json_encode($filters))
+            ->assertJsonCount(3);
+    }
+
+    /** @test */
     public function set_query_with_between_operator()
     {
         Book::factory()->create(['category_id' => 1]);

@@ -65,6 +65,10 @@ trait HasFilterableScope
             $builder->whereIn($filter['column'], $filter['value'], $filter['boolean']);
         }
 
+        if ($filter['operator'] === 'not in') {
+            $builder->whereNotIn($filter['column'], $filter['value'], $filter['boolean']);
+        }
+
         if ($filter['operator'] == 'between') {
             $builder->whereBetween($filter['column'], $filter['value'], $filter['boolean']);
         }
