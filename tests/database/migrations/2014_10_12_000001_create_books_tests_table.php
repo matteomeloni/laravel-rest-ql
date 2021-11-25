@@ -16,7 +16,7 @@ class CreateBooksTestsTable extends Migration
         Schema::create('books_tests', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->string('author');
             $table->unsignedBigInteger('category_id');
             $table->timestamps();

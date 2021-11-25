@@ -209,6 +209,20 @@ class BuildQueryWithHttpHeadersTest extends TestCase
     }
 
     /** @test */
+    public function set_query_with_null_operator()
+    {
+        Book::factory()->create(['description' => null]);
+        Book::factory(4)->create();
+
+        $filters = [
+            ['column' => 'description', 'operator' => 'null']
+        ];
+
+        $this->get('api/books', ['filters' => json_encode($filters)])
+            ->assertJsonCount(1);
+    }
+
+    /** @test */
     public function set_query_with_multiple_conditions()
     {
         Book::factory()->create(['title' => 'New Title', 'category_id' => 1]);
