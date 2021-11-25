@@ -162,7 +162,7 @@ Parameter: search
 
 #### Where conditions
 
-Avaialable comparison operators: `=` `!=` `<` `<=` `>` `>=` `like` `not like` `in` `between`
+Avaialable comparison operators: `=` `!=` `<` `<=` `>` `>=` `like` `not like` `in` `not in` `between` `not between` `null` `not null`
 
 ```
 URL: /api/books
