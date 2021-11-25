@@ -248,6 +248,28 @@ class BuildQueryWithArrayTest extends TestCase
     }
 
     /** @test */
+    public function set_query_with_not_between_operator()
+    {
+        Book::factory()->create(['category_id' => 1]);
+        Book::factory()->create(['category_id' => 2]);
+        Book::factory()->create(['category_id' => 3]);
+        Book::factory()->create(['category_id' => 4]);
+        Book::factory()->create(['category_id' => 5]);
+
+        $queryString = 'select * from "books_tests" where "category_id" not between ? and ?';
+        $data = [
+            'filters' => [
+                ['column' => 'category_id', 'operator' => 'not between', 'value' => [2, 4]]
+            ]
+        ];
+
+        $books = Book::restQl($data)->get();
+
+        $this->assertCount(2, $books);
+        $this->assertEquals($queryString, Book::restQl($data)->toSql());
+    }
+
+    /** @test */
     public function set_query_with_multiple_conditions()
     {
         Book::factory()->create(['title' => 'New Title', 'category_id' => 1]);

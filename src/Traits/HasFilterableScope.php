@@ -73,6 +73,10 @@ trait HasFilterableScope
             $builder->whereBetween($filter['column'], $filter['value'], $filter['boolean']);
         }
 
+        if ($filter['operator'] == 'not between') {
+            $builder->whereNotBetween($filter['column'], $filter['value'], $filter['boolean']);
+        }
+
         return $builder;
     }
 }
