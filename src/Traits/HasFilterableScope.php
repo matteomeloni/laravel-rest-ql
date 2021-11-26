@@ -4,6 +4,7 @@ namespace Matteomeloni\LaravelRestQl\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Matteomeloni\LaravelRestQl\Helper;
 
 trait HasFilterableScope
@@ -52,6 +53,7 @@ trait HasFilterableScope
     private function setWhereCondition(Builder $builder, array $filter): Builder
     {
         $filter['boolean'] = $filter['boolean'] ?? 'and';
+        $filter['not'] = Str::of($filter['operator'])->test('/not/');
 
         if (!in_array($filter['column'], $this->getSearchable())) {
             return $builder;
@@ -61,28 +63,16 @@ trait HasFilterableScope
             $builder->where($filter['column'], $filter['operator'], $filter['value'], $filter['boolean']);
         }
 
-        if ($filter['operator'] === 'in') {
-            $builder->whereIn($filter['column'], $filter['value'], $filter['boolean']);
+        if (in_array($filter['operator'], ['in', 'not in'])) {
+            $builder->whereIn($filter['column'], $filter['value'], $filter['boolean'], $filter['not']);
         }
 
-        if ($filter['operator'] === 'not in') {
-            $builder->whereNotIn($filter['column'], $filter['value'], $filter['boolean']);
+        if (in_array($filter['operator'], ['between', 'not between'])) {
+            $builder->whereBetween($filter['column'], $filter['value'], $filter['boolean'], $filter['not']);
         }
 
-        if ($filter['operator'] == 'between') {
-            $builder->whereBetween($filter['column'], $filter['value'], $filter['boolean']);
-        }
-
-        if ($filter['operator'] == 'not between') {
-            $builder->whereNotBetween($filter['column'], $filter['value'], $filter['boolean']);
-        }
-
-        if ($filter['operator'] == 'null') {
-            $builder->whereNull($filter['column'], $filter['boolean']);
-        }
-
-        if ($filter['operator'] == 'not null') {
-            $builder->whereNotNull($filter['column'], $filter['boolean']);
+        if (in_array($filter['operator'], ['null', 'not null'])) {
+            $builder->whereNull($filter['column'], $filter['boolean'], $filter['not']);
         }
 
         return $builder;
