@@ -34,7 +34,10 @@ trait HasSortableScope
     {
         $item['direction'] = $item['direction'] ?? 'asc';
 
-        if (!in_array($item['column'], $this->getSearchable())) {
+        if (
+            !in_array($item['column'], $this->getSearchable()) and
+            $this->skipSearchableControl === false
+        ) {
             return $builder;
         }
 

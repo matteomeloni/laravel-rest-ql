@@ -19,6 +19,11 @@ abstract class LaravelRestQl extends Model
         HasTextSearchScope;
 
     /**
+     * @var bool
+     */
+    protected $skipSearchableControl = false;
+
+    /**
      * @param Builder $builder
      * @param array $params
      * @return Builder
