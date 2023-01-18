@@ -210,9 +210,9 @@ Parameter: sorts
 
 ## Requirements
 
-- `php 7.4 or later`
+- `php 8.0 or later`
 
-- `Laravel 7 or later`
+- `Laravel 9`
 
 ## Testing
 
@@ -223,12 +223,6 @@ $ composer test
 ## Change log
 
 Please see the [changelog][link-changelog] for more information on what has changed recently.
-
-## Testing
-
-```bash
-$ composer test
-```
 
 ## Contributing
 
